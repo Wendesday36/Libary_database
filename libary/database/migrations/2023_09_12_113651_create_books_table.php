@@ -16,11 +16,10 @@ return new class extends Migration
             $table->id('book_id');
             $table->string('author',32);
             $table->string('title',150);
-            $table->integer('pieces')->default(50);
             $table->timestamps();
         });
-        Book::create(['book_id' => 1, 'author' => 'Colin Hoover', 'title' => 'It start with us', 'pieces'=> 20]);
-        Book::create(['book_id' => 2, 'author' => 'Monica Murphy', 'title' => 'Million kisses in your lifetime', 'pieces'=> 22]);
+        Book::create(['book_id' => 1, 'author' => 'Colin Hoover', 'title' => 'It start with us']);
+        Book::create(['book_id' => 2, 'author' => 'Monica Murphy', 'title' => 'Million kisses in your lifetime']);
     }
 
     /**
