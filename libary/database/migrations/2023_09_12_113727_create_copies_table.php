@@ -13,6 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('copies', function (Blueprint $table) {
+            $table ->id('copy_id');
             //0-puha,1-keney kotesu
             $table->boolean('hardcovered')->default(0);
             //0-konyvt,1f-nal,2-selejt
