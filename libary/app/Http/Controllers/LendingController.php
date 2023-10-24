@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lending;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LendingController extends Controller
 {
@@ -12,14 +13,21 @@ class LendingController extends Controller
     {
         return Lending::all();
     }
-    public function show($id)
+    public function show($user_id, $copy_id, $start)
+
     {
-        return Lending::find($id);
+        $lending = LendingController::show($user_id, $copy_id, $start);
+
+        return $lending[0];
     }
-    public function destroy($id)
+
+
+
+    public function destroy($user_id, $copy_id, $start)
+
     {
-        return Lending::find($id)->delete();
-        // return redirect('/Lending/list');
+
+        LendingController::show($user_id, $copy_id, $start)->delete();
     }
     public function update(Request $request, $id)
     {
@@ -38,5 +46,10 @@ class LendingController extends Controller
         $lending->start = $request->start;
         $lending->save();
         //return redirect('/Lending/list');
+    }
+    public function lendingUser(){
+        $user = Auth:: user();
+        $lendings = Lending::with('user')->where('user_id','=',$user->id)->get();
+        return $lendings;
     }
 }

@@ -36,4 +36,7 @@ class CopyController extends Controller
        $copy->save();
         //return redirect('/Copy/list');
     }
+    public function copyBookLending(){
+        return Copy :: with('book')->with('lending')->get();
+    }
 }

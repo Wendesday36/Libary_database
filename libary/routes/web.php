@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CopyController;
+use App\Http\Controllers\LendingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +34,15 @@ Route::middleware('auth')->group(function () {
 Route::apiResource('/api/books',BookController::class);
 Route::apiResource('/api/copies',CopyController::class);
 Route::apiResource('/api/users',UserController::class);
-   
+Route::patch('/api/user_password/{id}',[UserController::class,'updatePassword']);  
+Route::delete('/api/lendings/{user_id}/{copy_id}/{start}',[LendingController::class,'destroy']);  
+
+Route::middleware( ['admin'])->group(function () {
+    Route::apiResource('/api/books', BookController::class);
+
+    Route::get('/with/book_copy',[BookController::class,'bookCopy']);
+    Route::get('/with/lending_user',[LendingController::class,'lendingUser']);
+    Route::get('/with/copy_book_lending',[CopyController::class,'copyBookLending']);
+});
 
 require __DIR__.'/auth.php';

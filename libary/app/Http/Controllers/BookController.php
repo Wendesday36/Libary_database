@@ -48,4 +48,9 @@ class BookController extends Controller
         $books = Book::all();
         return view('book.list',['books'=>$books]);
     }
+    
+    public function bookCopy()  {
+       return Book::with('copy')->get();
+        
+    }
 }
